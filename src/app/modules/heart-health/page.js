@@ -93,7 +93,6 @@ function QuizSet({ lang, quiz, onComplete }) {
   function next() { if (idx + 1 >= quiz.questions.length) { setDone(true); onComplete(score); return } setIdx(i => i + 1); setSelected(null) }
 
   if (done) return <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {score} pts</div>
-
   return (
     <div>
       <div className="flex justify-between mb-3"><span className="text-sm text-gray-400">{idx + 1}/{quiz.questions.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
