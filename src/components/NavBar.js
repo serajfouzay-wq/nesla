@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useApp } from '@/contexts/AppContext'
 import { usePathname } from 'next/navigation'
 
@@ -10,15 +11,7 @@ export default function NavBar() {
   return (
     <nav className="nav-gaming px-4 py-0 h-14 flex items-center justify-between">
       <Link href="/" className="flex items-center gap-2.5 group">
-        {/* Stylized nest/bird mark in Nestlé brand colors (not the trademarked logo) */}
-        <svg width="32" height="32" viewBox="0 0 32 32" className="flex-shrink-0">
-          <circle cx="16" cy="16" r="15" fill="#E2001A" />
-          <path d="M9 19 Q9 22 12 22 L20 22 Q23 22 23 19" stroke="#FFF" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
-          <ellipse cx="16" cy="13" rx="4.2" ry="3.6" fill="#FFF"/>
-          <polygon points="16,15.5 19,17 16,18.5" fill="#F0A500"/>
-          <ellipse cx="9" cy="15" rx="2.6" ry="3.8" fill="#FFF" opacity="0.85" transform="rotate(-18 9 15)"/>
-          <ellipse cx="23" cy="15" rx="2.6" ry="3.8" fill="#FFF" opacity="0.85" transform="rotate(18 23 15)"/>
-        </svg>
+        <Image src="/nestle-logo.png" alt="Nestlé" width={32} height={32} className="flex-shrink-0 rounded-full" />
         <div className="hidden sm:block leading-none">
           <p className="text-white font-black text-sm tracking-tight">Nestlé Malaysia</p>
           <p className="text-neon-cyan text-[10px] font-bold tracking-widest uppercase opacity-75">SHE Day 2026 Tournament</p>

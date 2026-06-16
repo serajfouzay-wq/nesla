@@ -39,6 +39,18 @@
     background-size: 100% 100%;
     animation: drift 18s ease-in-out infinite alternate;
   }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: -20%;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      conic-gradient(from 0deg at 20% 30%, transparent 0deg, rgba(226,0,26,0.05) 40deg, transparent 90deg),
+      conic-gradient(from 180deg at 80% 70%, transparent 0deg, rgba(0,212,255,0.06) 50deg, transparent 110deg);
+    animation: rotate-slow 30s linear infinite;
+    filter: blur(40px);
+  }
   @keyframes drift {
     0% { transform: translate(0,0); opacity: 0.6; }
     50% { transform: translate(-8px, 10px); opacity: 1; }

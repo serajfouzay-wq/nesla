@@ -12,9 +12,9 @@ const MODULES = [
   { slug: 'balanced-diet', icon: '🥗', status: 'ready', priority: 2, color: 'from-lime-900 to-lime-800', border: 'border-lime-700' },
   { slug: 'heart-health', icon: '❤️', status: 'ready', priority: 2, color: 'from-pink-900 to-pink-800', border: 'border-pink-700' },
   { slug: 'mental-health', icon: '🧠', status: 'ready', priority: 2, color: 'from-purple-900 to-purple-800', border: 'border-purple-700' },
-  { slug: 'ergonomic', icon: '🪑', status: 'pending', priority: 3, color: 'from-gray-800 to-gray-700', border: 'border-gray-600' },
-  { slug: 'exercise', icon: '🏃', status: 'pending', priority: 3, color: 'from-gray-800 to-gray-700', border: 'border-gray-600' },
-  { slug: 'medical-cpr', icon: '🫀', status: 'pending', priority: 3, color: 'from-gray-800 to-gray-700', border: 'border-gray-600' },
+  { slug: 'ergonomic', icon: '🪑', status: 'ready', priority: 3, color: 'from-slate-800 to-slate-700', border: 'border-slate-600' },
+  { slug: 'exercise', icon: '🏃', status: 'ready', priority: 3, color: 'from-slate-800 to-slate-700', border: 'border-slate-600' },
+  { slug: 'medical-cpr', icon: '🫀', status: 'ready', priority: 3, color: 'from-slate-800 to-slate-700', border: 'border-slate-600' },
 ]
 
 const MODULE_KEYS = {
