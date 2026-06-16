@@ -25,7 +25,7 @@ const MODULE_KEYS = {
   'mental-health': 'mentalHealth', 'ergonomic': 'ergonomic', 'exercise': 'exercise', 'medical-cpr': 'medicalCpr',
 }
 
-const PRIORITY_LABELS = { 1: { label: 'P1', color: '#FFD700', bg: 'rgba(255,215,0,0.12)', border: 'rgba(255,215,0,0.35)' }, 2: { label: 'P2', color: '#00D4FF', bg: 'rgba(0,212,255,0.12)', border: 'rgba(0,212,255,0.35)' }, 3: { label: 'P3', color: '#94A3B8', bg: 'rgba(148,163,184,0.1)', border: 'rgba(148,163,184,0.2)' } }
+const PRIORITY_LABELS = { 1: { label: 'P1', color: '#FFD700', bg: 'rgba(255, 201, 99, 0.12)', border: 'rgba(251, 192, 15, 0.35)' }, 2: { label: 'P2', color: '#00D4FF', bg: 'rgba(7, 200, 238, 0.12)', border: 'rgba(0,212,255,0.35)' }, 3: { label: 'P3', color: '#94A3B8', bg: 'rgba(104, 140, 191, 0.1)', border: 'rgba(148,163,184,0.2)' } }
 
 export default function HomePage() {
   const { lang, team } = useApp()
@@ -67,9 +67,9 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="mb-8 animate-slide-up rounded-2xl p-5 flex items-center gap-4"
-            style={{ background:'rgba(0,112,60,0.1)', border:'1px solid rgba(0,255,136,0.25)', boxShadow:'0 0 24px rgba(0,255,136,0.06)' }}>
+            style={{ background:'rgba(13, 176, 100, 0.1)', border:'1px solid rgba(0,255,136,0.25)', boxShadow:'0 0 24px rgba(0,255,136,0.06)' }}>
             <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ background:'rgba(0,255,136,0.1)', border:'1px solid rgba(0,255,136,0.3)' }}>👥</div>
+              style={{ background:'rgba(12, 211, 82, 0.1)', border:'1px solid rgba(0,255,136,0.3)' }}>👥</div>
             <div className="flex-1 min-w-0">
               <p className="font-black text-lg" style={{ color:'#00FF88' }}>{team.groupName}</p>
               <p className="text-sm text-gray-400 truncate">{team.player1} · {team.player2} · {team.player3}</p>
