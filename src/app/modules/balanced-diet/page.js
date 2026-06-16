@@ -119,7 +119,6 @@ export default function BalancedDietPage() {
   const [calcScore, setCalcScore] = useState(null)
   const [plateScore, setPlateScore] = useState(null)
   const total = (calcScore ?? 0) + (plateScore ?? 0)
- fanction (frameElement)
 
   return (
     <div className="min-h-screen">
