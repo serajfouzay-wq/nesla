@@ -7,7 +7,7 @@
 @layer base {
   * { box-sizing: border-box; }
   body {
-    background-color: #071020;
+    background-color: #F8FAFC;
     background-image:
       radial-gradient(circle at 15% 20%, rgba(226,0,26,0.08) 0%, transparent 40%),
       radial-gradient(circle at 85% 10%, rgba(0,212,255,0.06) 0%, transparent 35%),
@@ -16,7 +16,7 @@
       linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
     background-size: auto, auto, auto, 32px 32px, 32px 32px;
     background-attachment: fixed;
-    color: #FFFFFF;
+    color: #0F172A;
     min-height: 100vh;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
