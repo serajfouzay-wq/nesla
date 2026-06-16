@@ -9,19 +9,22 @@ export default function NavBar() {
 
   return (
     <nav className="nav-gaming px-4 py-0 h-14 flex items-center justify-between">
-      {/* Left: Logo */}
-      <Link href="/" className="flex items-center gap-3 group">
-        <div className="relative w-9 h-9 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-lg bg-nestle-red animate-pulse-glow" />
-          <span className="relative z-10 text-white font-black text-xs tracking-tight leading-none text-center">SHE<br/>2026</span>
-        </div>
-        <div className="hidden sm:block">
-          <p className="text-white font-black text-sm leading-none">SHE Day 2026</p>
-          <p className="text-neon-cyan text-[10px] font-semibold tracking-widest uppercase leading-none mt-0.5 opacity-70">Safety · Health · Environment</p>
+      <Link href="/" className="flex items-center gap-2.5 group">
+        {/* Stylized nest/bird mark in Nestlé brand colors (not the trademarked logo) */}
+        <svg width="32" height="32" viewBox="0 0 32 32" className="flex-shrink-0">
+          <circle cx="16" cy="16" r="15" fill="#E2001A" />
+          <path d="M9 19 Q9 22 12 22 L20 22 Q23 22 23 19" stroke="#FFF" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
+          <ellipse cx="16" cy="13" rx="4.2" ry="3.6" fill="#FFF"/>
+          <polygon points="16,15.5 19,17 16,18.5" fill="#F0A500"/>
+          <ellipse cx="9" cy="15" rx="2.6" ry="3.8" fill="#FFF" opacity="0.85" transform="rotate(-18 9 15)"/>
+          <ellipse cx="23" cy="15" rx="2.6" ry="3.8" fill="#FFF" opacity="0.85" transform="rotate(18 23 15)"/>
+        </svg>
+        <div className="hidden sm:block leading-none">
+          <p className="text-white font-black text-sm tracking-tight">Nestlé Malaysia</p>
+          <p className="text-neon-cyan text-[10px] font-bold tracking-widest uppercase opacity-75">SHE Day 2026 Tournament</p>
         </div>
       </Link>
 
-      {/* Center: breadcrumb on module pages */}
       {pathname?.includes('/modules/') && (
         <div className="hidden md:flex items-center gap-2 text-xs text-gray-500">
           <Link href="/" className="hover:text-gray-300 transition-colors">Home</Link>
@@ -30,7 +33,6 @@ export default function NavBar() {
         </div>
       )}
 
-      {/* Right: team + controls */}
       <div className="flex items-center gap-2">
         {team && (
           <div className="hidden sm:flex items-center gap-2 bg-nestle-navy border border-nestle-blue/40 rounded-xl px-3 py-1.5">
