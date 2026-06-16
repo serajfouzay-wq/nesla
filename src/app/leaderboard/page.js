@@ -1,95 +1,156 @@
 'use client'
-export const dynamic = 'force-dynamic'
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import NavBar from '@/components/NavBar'
-import { supabase } from '@/lib/supabase'
+import BirdMascot from '@/components/BirdMascot'
 import { useApp } from '@/contexts/AppContext'
 import { t } from '@/lib/i18n'
+import { useState } from 'react'
 
-const MODULE_ICONS = {
-  'safe-driving': '🚗', 'slip-trip-fall': '⚠️', 'fire-emergency': '🔥',
-  'plastic-recycling': '♻️', 'balanced-diet': '🥗', 'heart-health': '❤️',
-  'mental-health': '🧠', 'ergonomic': '🪑', 'exercise': '🏃', 'medical-cpr': '🫀',
+const MODULES = [
+  { slug: 'safe-driving',      icon: '🚗', status: 'ready',   priority: 1, accent: '#3B82F6', glow: 'rgba(59,130,246,0.15)', border: 'rgba(59,130,246,0.35)' },
+  { slug: 'slip-trip-fall',    icon: '⚠️', status: 'ready',   priority: 1, accent: '#F97316', glow: 'rgba(249,115,22,0.15)', border: 'rgba(249,115,22,0.35)' },
+  { slug: 'fire-emergency',    icon: '🔥', status: 'ready',   priority: 2, accent: '#E2001A', glow: 'rgba(226,0,26,0.15)',   border: 'rgba(226,0,26,0.35)'   },
+  { slug: 'plastic-recycling', icon: '♻️', status: 'ready',   priority: 2, accent: '#00703C', glow: 'rgba(0,112,60,0.15)',   border: 'rgba(0,112,60,0.35)'   },
+  { slug: 'balanced-diet',     icon: '🥗', status: 'ready',   priority: 2, accent: '#84CC16', glow: 'rgba(132,204,22,0.15)', border: 'rgba(132,204,22,0.35)' },
+  { slug: 'heart-health',      icon: '❤️', status: 'ready',   priority: 2, accent: '#EC4899', glow: 'rgba(236,72,153,0.15)', border: 'rgba(236,72,153,0.35)' },
+  { slug: 'mental-health',     icon: '🧠', status: 'ready',   priority: 2, accent: '#A855F7', glow: 'rgba(168,85,247,0.15)', border: 'rgba(168,85,247,0.35)' },
+  { slug: 'ergonomic',         icon: '🪑', status: 'pending', priority: 3, accent: '#64748B', glow: 'rgba(100,116,139,0.1)', border: 'rgba(100,116,139,0.25)' },
+  { slug: 'exercise',          icon: '🏃', status: 'pending', priority: 3, accent: '#64748B', glow: 'rgba(100,116,139,0.1)', border: 'rgba(100,116,139,0.25)' },
+  { slug: 'medical-cpr',       icon: '🫀', status: 'pending', priority: 3, accent: '#64748B', glow: 'rgba(100,116,139,0.1)', border: 'rgba(100,116,139,0.25)' },
+]
+
+const MODULE_KEYS = {
+  'safe-driving': 'safeDriving', 'slip-trip-fall': 'slipTripFall', 'fire-emergency': 'fireEmergency',
+  'plastic-recycling': 'plasticRecycling', 'balanced-diet': 'balancedDiet', 'heart-health': 'heartHealth',
+  'mental-health': 'mentalHealth', 'ergonomic': 'ergonomic', 'exercise': 'exercise', 'medical-cpr': 'medicalCpr',
 }
-const MEDALS = ['🥇', '🥈', '🥉']
 
-export default function LeaderboardPage() {
+const PRIORITY_LABELS = { 1: { label: 'P1', color: '#FFD700', bg: 'rgba(255,215,0,0.12)', border: 'rgba(255,215,0,0.35)' }, 2: { label: 'P2', color: '#00D4FF', bg: 'rgba(0,212,255,0.12)', border: 'rgba(0,212,255,0.35)' }, 3: { label: 'P3', color: '#94A3B8', bg: 'rgba(148,163,184,0.1)', border: 'rgba(148,163,184,0.2)' } }
+
+export default function HomePage() {
   const { lang, team } = useApp()
-  const [rows, setRows] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [lastUpdate, setLastUpdate] = useState(null)
+  const [birdDismissed, setBirdDismissed] = useState(false)
 
-  async function fetchScores() {
-    const { data } = await supabase.from('teams')
-      .select('id, group_name, player1_name, player2_name, player3_name, scores(module_slug, score, max_score)')
-      .order('group_name')
-    if (!data) return
-    const ranked = data.map(t => ({
-      id: t.id, groupName: t.group_name,
-      players: [t.player1_name, t.player2_name, t.player3_name],
-      modules: t.scores || [],
-      total: (t.scores || []).reduce((s, sc) => s + (sc.score || 0), 0),
-    })).sort((a, b) => b.total - a.total)
-    setRows(ranked); setLastUpdate(new Date()); setLoading(false)
-  }
-
-  useEffect(() => {
-    fetchScores()
-    const channel = supabase.channel('scores-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'scores' }, fetchScores)
-      .subscribe()
-    return () => supabase.removeChannel(channel)
-  }, [])
+  const readyCount = MODULES.filter(m => m.status === 'ready').length
 
   return (
     <div className="min-h-screen">
       <NavBar />
-      <main className="pt-20 pb-12 px-4 max-w-3xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-black">🏆 {t(lang, 'leaderboard')}</h1>
-          <p className="text-gray-400 mt-1 text-sm">{lang === 'en' ? 'Live · updates automatically' : 'Langsung · dikemas kini secara automatik'}</p>
-          {lastUpdate && <p className="text-xs text-gray-600 mt-1">{lang === 'en' ? 'Last updated:' : 'Dikemas kini:'} {lastUpdate.toLocaleTimeString()}</p>}
+
+      <main className="pt-16 pb-16 px-4 max-w-5xl mx-auto">
+
+        {/* Hero */}
+        <div className="text-center py-10 sm:py-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-5"
+            style={{ background:'rgba(226,0,26,0.12)', border:'1px solid rgba(226,0,26,0.35)', color:'#FF6080' }}>
+            🇲🇾 Nestlé Malaysia · 29 April 2026
+          </div>
+          <h1 className="text-4xl sm:text-6xl font-black mb-3 leading-none tracking-tight">
+            <span className="text-white">SHE Day</span>{' '}
+            <span style={{ color:'#E2001A', textShadow:'0 0 30px rgba(226,0,26,0.4)' }}>2026</span>
+          </h1>
+          <p className="text-gray-400 text-lg sm:text-xl font-medium mb-2">
+            {t(lang, 'appSubtitle')}
+          </p>
+          <p className="text-xs text-gray-600 font-semibold uppercase tracking-widest">
+            Sales Region Tournament · {readyCount} modules active
+          </p>
         </div>
-        {loading ? (
-          <div className="text-center text-gray-400 py-12"><div className="text-4xl mb-3 animate-spin">⏳</div>{lang === 'en' ? 'Loading scores…' : 'Memuatkan markah…'}</div>
-        ) : rows.length === 0 ? (
-          <div className="card text-center py-12 text-gray-500">{lang === 'en' ? 'No scores yet — be the first!' : 'Tiada markah lagi — jadilah yang pertama!'}</div>
+
+        {/* Team status */}
+        {!team ? (
+          <div className="card-hud mb-8 animate-slide-up text-center">
+            <div className="text-3xl mb-3">🎮</div>
+            <p className="text-white font-bold text-lg mb-1">{lang === 'en' ? 'Register Your Team' : 'Daftarkan Pasukan Anda'}</p>
+            <p className="text-gray-400 text-sm mb-5">{lang === 'en' ? 'Create a team of 3 to compete and track scores' : 'Buat pasukan 3 orang untuk bersaing dan jejak markah'}</p>
+            <Link href="/register" className="btn-primary">{t(lang, 'register')} 🚀</Link>
+          </div>
         ) : (
-          <div className="space-y-3">
-            {rows.map((row, i) => {
-              const isMe = team?.id === row.id
-              return (
-                <div key={row.id} className={`rounded-2xl border p-4 ${i === 0 ? 'border-yellow-500 bg-yellow-900/20' : i === 1 ? 'border-gray-400 bg-gray-800/60' : i === 2 ? 'border-orange-600 bg-orange-900/20' : isMe ? 'border-blue-500 bg-blue-900/20' : 'border-gray-800 bg-gray-900'}`}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xl font-black flex-shrink-0 bg-gray-800">{i < 3 ? MEDALS[i] : i + 1}</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <p className="font-bold text-lg truncate">{row.groupName}</p>
-                        {isMe && <span className="badge-green text-xs flex-shrink-0">{lang === 'en' ? 'You' : 'Anda'}</span>}
-                      </div>
-                      <p className="text-xs text-gray-500 truncate">{row.players.join(' · ')}</p>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      <p className={`text-2xl font-black ${i === 0 ? 'text-yellow-400' : i === 1 ? 'text-gray-300' : i === 2 ? 'text-orange-400' : 'text-white'}`}>{row.total}</p>
-                      <p className="text-xs text-gray-500">{lang === 'en' ? 'points' : 'mata'}</p>
-                    </div>
-                  </div>
-                  {row.modules.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mt-3">
-                      {row.modules.map(m => (
-                        <span key={m.module_slug} className="inline-flex items-center gap-1 bg-gray-800 border border-gray-700 rounded-lg px-2 py-0.5 text-xs">
-                          {MODULE_ICONS[m.module_slug] || '📋'} {m.score}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )
-            })}
+          <div className="mb-8 animate-slide-up rounded-2xl p-5 flex items-center gap-4"
+            style={{ background:'rgba(0,112,60,0.1)', border:'1px solid rgba(0,255,136,0.25)', boxShadow:'0 0 24px rgba(0,255,136,0.06)' }}>
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+              style={{ background:'rgba(0,255,136,0.1)', border:'1px solid rgba(0,255,136,0.3)' }}>👥</div>
+            <div className="flex-1 min-w-0">
+              <p className="font-black text-lg" style={{ color:'#00FF88' }}>{team.groupName}</p>
+              <p className="text-sm text-gray-400 truncate">{team.player1} · {team.player2} · {team.player3}</p>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color:'#00FF88' }}>
+              <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
+              {lang === 'en' ? 'Active' : 'Aktif'}
+            </div>
           </div>
         )}
-        <div className="text-center mt-8">
-          <button onClick={fetchScores} className="btn-secondary">{lang === 'en' ? '🔄 Refresh' : '🔄 Muat Semula'}</button>
+
+        {/* Bird mascot intro */}
+        {!birdDismissed && (
+          <div className="mb-8 animate-slide-up">
+            <BirdMascot state="start" onDismiss={() => setBirdDismissed(true)} />
+          </div>
+        )}
+
+        {/* HUD divider */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="hud-label">{t(lang, 'selectModule')}</div>
+          <div className="flex-1 hud-divider my-0" />
+          <span className="text-xs text-gray-600">{readyCount}/{MODULES.length} {lang === 'en' ? 'ready' : 'sedia'}</span>
+        </div>
+
+        {/* Module grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+          {MODULES.map((mod, i) => {
+            const name = t(lang, `modules.${MODULE_KEYS[mod.slug]}`)
+            const isReady = mod.status === 'ready'
+            const p = PRIORITY_LABELS[mod.priority]
+            return (
+              <Link key={mod.slug} href={`/modules/${mod.slug}`}
+                className="module-card group"
+                style={{
+                  background: `linear-gradient(135deg, rgba(7,16,32,0.95) 0%, ${mod.glow} 100%)`,
+                  border: `1px solid ${mod.border}`,
+                  boxShadow: isReady ? `0 0 20px ${mod.glow}` : 'none',
+                  animationDelay: `${i * 40}ms`,
+                }}>
+                {/* Priority badge */}
+                <div className="flex items-start justify-between mb-4">
+                  <span className="text-3xl">{mod.icon}</span>
+                  <div className="flex flex-col items-end gap-1.5">
+                    <span className="text-xs font-black px-2 py-0.5 rounded-full"
+                      style={{ background: p.bg, border:`1px solid ${p.border}`, color: p.color }}>
+                      {p.label}
+                    </span>
+                    <span className={isReady ? 'badge-green' : 'badge-yellow'} style={{ fontSize:'10px' }}>
+                      {isReady ? (lang === 'en' ? '● LIVE' : '● AKTIF') : (lang === 'en' ? '⏳ SOON' : '⏳ SEGERA')}
+                    </span>
+                  </div>
+                </div>
+
+                <h3 className="font-black text-base text-white mb-1.5 leading-tight">{name}</h3>
+
+                {/* Mini progress bar (decorative) */}
+                <div className="progress-track mb-3">
+                  <div className="progress-fill" style={{ width: isReady ? '100%' : '30%', background: isReady ? `linear-gradient(90deg, ${mod.accent}88, ${mod.accent})` : undefined }} />
+                </div>
+
+                <p className="text-xs font-semibold transition-colors"
+                  style={{ color: isReady ? mod.accent : '#64748B' }}>
+                  {isReady ? (lang === 'en' ? 'Tap to play →' : 'Ketik untuk main →') : (lang === 'en' ? 'Assets pending…' : 'Menunggu aset…')}
+                </p>
+
+                {/* Hover glow corner */}
+                <div className="absolute bottom-0 right-0 w-16 h-16 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{ background: `radial-gradient(circle at 100% 100%, ${mod.accent}20, transparent 70%)` }} />
+              </Link>
+            )
+          })}
+        </div>
+
+        {/* Footer */}
+        <div className="text-center">
+          <div className="hud-divider mb-6" />
+          <div className="flex items-center justify-center gap-6 text-xs text-gray-700">
+            <Link href="/leaderboard" className="hover:text-gray-400 transition-colors">🏆 {lang === 'en' ? 'Leaderboard' : 'Papan Markah'}</Link>
+            <Link href="/admin" className="hover:text-gray-400 transition-colors">🔒 {t(lang, 'admin')}</Link>
+          </div>
         </div>
       </main>
     </div>
