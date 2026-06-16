@@ -25,7 +25,7 @@ const MODULE_KEYS = {
   'mental-health': 'mentalHealth', 'ergonomic': 'ergonomic', 'exercise': 'exercise', 'medical-cpr': 'medicalCpr',
 }
 
-const PRIORITY_LABELS = { 1: { label: 'P1', color: '#FFD700', bg: 'rgba(255, 201, 99, 0.12)', border: 'rgba(251, 192, 15, 0.35)' }, 2: { label: 'P2', color: '#00D4FF', bg: 'rgba(7, 200, 238, 0.12)', border: 'rgba(0,212,255,0.35)' }, 3: { label: 'P3', color: '#94A3B8', bg: 'rgba(104, 140, 191, 0.1)', border: 'rgba(148,163,184,0.2)' } }
+const PRIORITY_LABELS = { 1: { label: 'P1', color: '#FFD700', bg: 'rgba(255, 201, 99, 0.12)', border: 'rgba(251, 192, 15, 0.35)' }, 2: { label: 'P2', color: '#00D4FF', bg: 'rgba(7, 200, 238, 0.12)', border: 'rgba(0,212,255,0.35)' }, 3: { label: 'P3', color: '#94A3B8', bg: 'rgba(107, 114, 128, 0.08)', border: 'rgba(107,114,128,0.25)' } }
 
 export default function HomePage() {
   const { lang, team } = useApp()
@@ -46,10 +46,10 @@ export default function HomePage() {
             🇲🇾 Nestlé Malaysia · 29 April 2026
           </div>
           <h1 className="text-4xl sm:text-6xl font-black mb-3 leading-none tracking-tight">
-            <span className="text-white">SHE Day</span>{' '}
+            <span className="text-gray-900">SHE Day</span>{' '}
             <span style={{ color:'#E2001A', textShadow:'0 0 30px rgba(226,0,26,0.4)' }}>2026</span>
           </h1>
-          <p className="text-gray-400 text-lg sm:text-xl font-medium mb-2">
+          <p className="text-gray-500 text-lg sm:text-xl font-medium mb-2">
             {t(lang, 'appSubtitle')}
           </p>
           <p className="text-xs text-gray-600 font-semibold uppercase tracking-widest">
@@ -61,20 +61,20 @@ export default function HomePage() {
         {!team ? (
           <div className="card-hud mb-8 animate-slide-up text-center">
             <div className="text-3xl mb-3">🎮</div>
-            <p className="text-white font-bold text-lg mb-1">{lang === 'en' ? 'Register Your Team' : 'Daftarkan Pasukan Anda'}</p>
-            <p className="text-gray-400 text-sm mb-5">{lang === 'en' ? 'Create a team of 3 to compete and track scores' : 'Buat pasukan 3 orang untuk bersaing dan jejak markah'}</p>
+            <p className="text-gray-900 font-bold text-lg mb-1">{lang === 'en' ? 'Register Your Team' : 'Daftarkan Pasukan Anda'}</p>
+            <p className="text-gray-500 text-sm mb-5">{lang === 'en' ? 'Create a team of 3 to compete and track scores' : 'Buat pasukan 3 orang untuk bersaing dan jejak markah'}</p>
             <Link href="/register" className="btn-primary">{t(lang, 'register')} 🚀</Link>
           </div>
         ) : (
           <div className="mb-8 animate-slide-up rounded-2xl p-5 flex items-center gap-4"
-            style={{ background:'rgba(13, 176, 100, 0.1)', border:'1px solid rgba(0,255,136,0.25)', boxShadow:'0 0 24px rgba(0,255,136,0.06)' }}>
+            style={{ background:'rgba(13, 176, 100, 0.1)', border:'1px solid rgba(0,163,94,0.12)', boxShadow:'0 0 24px rgba(0,163,94,0.12)' }}>
             <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-              style={{ background:'rgba(12, 211, 82, 0.1)', border:'1px solid rgba(0,255,136,0.3)' }}>👥</div>
+              style={{ background:'rgba(12, 211, 82, 0.1)', border:'1px solid rgba(0,163,94,0.12)' }}>👥</div>
             <div className="flex-1 min-w-0">
-              <p className="font-black text-lg" style={{ color:'#00FF88' }}>{team.groupName}</p>
-              <p className="text-sm text-gray-400 truncate">{team.player1} · {team.player2} · {team.player3}</p>
+              <p className="font-black text-lg" style={{ color:'#00A35E' }}>{team.groupName}</p>
+              <p className="text-sm text-gray-500 truncate">{team.player1} · {team.player2} · {team.player3}</p>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color:'#00FF88' }}>
+            <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color:'#00A35E' }}>
               <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
               {lang === 'en' ? 'Active' : 'Aktif'}
             </div>
@@ -105,7 +105,7 @@ export default function HomePage() {
               <Link key={mod.slug} href={`/modules/${mod.slug}`}
                 className="module-card group"
                 style={{
-                  background: `linear-gradient(135deg, rgba(7,16,32,0.95) 0%, ${mod.glow} 100%)`,
+                  background: `linear-gradient(135deg, rgba(255,255,255,0.95) 0%, ${mod.glow} 100%)`,
                   border: `1px solid ${mod.border}`,
                   boxShadow: isReady ? `0 0 20px ${mod.glow}` : 'none',
                   animationDelay: `${i * 40}ms`,
@@ -124,7 +124,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <h3 className="font-black text-base text-white mb-1.5 leading-tight">{name}</h3>
+                <h3 className="font-black text-base text-gray-900 mb-1.5 leading-tight">{name}</h3>
 
                 {/* Mini progress bar (decorative) */}
                 <div className="progress-track mb-3">
@@ -148,8 +148,8 @@ export default function HomePage() {
         <div className="text-center">
           <div className="hud-divider mb-6" />
           <div className="flex items-center justify-center gap-6 text-xs text-gray-700">
-            <Link href="/leaderboard" className="hover:text-gray-400 transition-colors">🏆 {lang === 'en' ? 'Leaderboard' : 'Papan Markah'}</Link>
-            <Link href="/admin" className="hover:text-gray-400 transition-colors">🔒 {t(lang, 'admin')}</Link>
+            <Link href="/leaderboard" className="hover:text-gray-500 transition-colors">🏆 {lang === 'en' ? 'Leaderboard' : 'Papan Markah'}</Link>
+            <Link href="/admin" className="hover:text-gray-500 transition-colors">🔒 {t(lang, 'admin')}</Link>
           </div>
         </div>
       </main>

@@ -48,7 +48,7 @@ export default function ExerciseDragSort({ lang, onComplete, pointsEach = 10 }) 
 
   return (
     <div>
-      <p className="text-sm text-gray-400 mb-4">
+      <p className="text-sm text-gray-500 mb-4">
         {lang === 'en' ? 'Drag each exercise card into the correct category box below.' : 'Seret setiap kad senaman ke kotak kategori yang betul di bawah.'}
       </p>
 

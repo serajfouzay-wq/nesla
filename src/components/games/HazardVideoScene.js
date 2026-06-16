@@ -95,7 +95,7 @@ export default function HazardVideoScene({ lang, onComplete, pointsPerTap = 15 }
             className="w-12 h-12 rounded-full flex items-center justify-center animate-pulse"
             >
             <div className="absolute inset-0 rounded-full border-2 animate-ping" style={{ borderColor:'#FF2244' }} />
-            <div className="relative w-10 h-10 rounded-full flex items-center justify-center font-black text-white text-lg"
+            <div className="relative w-10 h-10 rounded-full flex items-center justify-center font-black text-gray-900 text-lg"
               style={{ background:'rgba(255,34,68,0.85)', border:'2px solid #FF6080' }}>!</div>
           </button>
         ))}
@@ -105,14 +105,14 @@ export default function HazardVideoScene({ lang, onComplete, pointsPerTap = 15 }
             <div className="w-16 h-16 rounded-full bg-nestle-red/90 flex items-center justify-center">
               <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8 ml-1"><polygon points="5,3 19,12 5,21"/></svg>
             </div>
-            <p className="text-white font-bold text-sm">{lang === 'en' ? 'Tap to start hazard scene' : 'Ketik untuk mula senario bahaya'}</p>
+            <p className="text-gray-900 font-bold text-sm">{lang === 'en' ? 'Tap to start hazard scene' : 'Ketik untuk mula senario bahaya'}</p>
           </button>
         )}
 
         {playing && (
           <div className="absolute top-2 left-2 right-2 flex justify-between pointer-events-none">
             <div className="bg-black/60 rounded-lg px-3 py-1 text-xs font-bold" style={{ color:'#00FF88' }}>{taps.length}/{HAZARD_EVENTS.length} {lang === 'en' ? 'spotted' : 'dikesan'} · {score} pts</div>
-            <div className="bg-nestle-red/80 rounded-lg px-3 py-1 text-xs text-white font-bold animate-pulse">{lang === 'en' ? 'TAP HAZARDS' : 'KETIK BAHAYA'}</div>
+            <div className="bg-nestle-red/80 rounded-lg px-3 py-1 text-xs text-gray-900 font-bold animate-pulse">{lang === 'en' ? 'TAP HAZARDS' : 'KETIK BAHAYA'}</div>
           </div>
         )}
       </div>
@@ -124,7 +124,7 @@ export default function HazardVideoScene({ lang, onComplete, pointsPerTap = 15 }
       {done && (
         <div className="mt-4 p-4 rounded-xl text-center" style={{ background:'rgba(0,255,136,0.08)', border:'1px solid rgba(0,255,136,0.3)' }}>
           <p className="font-black text-2xl" style={{ color:'#00FF88' }}>{score} / {HAZARD_EVENTS.length * pointsPerTap} pts</p>
-          <p className="text-sm text-gray-400 mt-1">{taps.length}/{HAZARD_EVENTS.length} {lang === 'en' ? 'hazards spotted' : 'bahaya dikesan'}</p>
+          <p className="text-sm text-gray-500 mt-1">{taps.length}/{HAZARD_EVENTS.length} {lang === 'en' ? 'hazards spotted' : 'bahaya dikesan'}</p>
           <button onClick={start} className="btn-secondary mt-3 text-sm py-2">{lang === 'en' ? '↻ Play Again' : '↻ Main Semula'}</button>
         </div>
       )}

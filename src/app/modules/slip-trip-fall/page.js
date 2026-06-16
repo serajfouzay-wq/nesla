@@ -96,7 +96,7 @@ export default function SlipTripFallPage() {
     <div className="min-h-screen pb-10">
       <NavBar />
       <div className="pt-24 max-w-2xl mx-auto px-4">
-        <h1 className="text-2xl font-black text-white mb-4">⚠️ Slip, Trip &amp; Fall</h1>
+        <h1 className="text-2xl font-black text-gray-900 mb-4">⚠️ Slip, Trip &amp; Fall</h1>
         <div className="flex gap-2 mb-6 flex-wrap">
           {['hazard','sequence','quiz','cards'].map(tb => (
             <button key={tb} onClick={() => setTab(tb)}
@@ -119,8 +119,8 @@ export default function SlipTripFallPage() {
 
         {tab === 'sequence' && (
           <div className="card-hud">
-            <h3 className="font-bold mb-2 text-white">Falling in the Outlet — What do you do?</h3>
-            <p className="text-sm text-gray-400 mb-4">Someone has slipped and fallen at the outlet. Arrange the 4 steps in the correct order by dragging.</p>
+            <h3 className="font-bold mb-2 text-gray-900">Falling in the Outlet — What do you do?</h3>
+            <p className="text-sm text-gray-500 mb-4">Someone has slipped and fallen at the outlet. Arrange the 4 steps in the correct order by dragging.</p>
             <div className="space-y-2">
               {seqItems.map((item, idx) => (
                 <div key={item.id}
@@ -129,8 +129,8 @@ export default function SlipTripFallPage() {
                   onDragOver={e => e.preventDefault()}
                   onDrop={() => handleDrop(idx)}
                   className={`drag-item ${seqSubmitted ? (item.id === CORRECT_ORDER[idx] ? 'correct' : 'wrong') : ''}`}>
-                  <span className="w-7 h-7 bg-nestle-red text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">{idx+1}</span>
-                  <span className="text-sm text-gray-200">{item.text}</span>
+                  <span className="w-7 h-7 bg-nestle-red text-gray-900 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">{idx+1}</span>
+                  <span className="text-sm text-gray-800">{item.text}</span>
                   {seqSubmitted && <span className="ml-auto">{item.id === CORRECT_ORDER[idx] ? '✅' : '❌'}</span>}
                 </div>
               ))}
@@ -147,8 +147,8 @@ export default function SlipTripFallPage() {
           <div className="card-hud">
             {!quizDone ? (
               <>
-                <p className="text-sm text-gray-400 mb-2">Question {qi+1} / {QUIZ.length}</p>
-                <p className="font-semibold text-lg mb-4 text-white">{QUIZ[qi].q}</p>
+                <p className="text-sm text-gray-500 mb-2">Question {qi+1} / {QUIZ.length}</p>
+                <p className="font-semibold text-lg mb-4 text-gray-900">{QUIZ[qi].q}</p>
                 <div className="space-y-2">
                   {QUIZ[qi].options.map((o,i) => {
                     let cls = 'quiz-option '
@@ -169,8 +169,8 @@ export default function SlipTripFallPage() {
 
         {tab === 'cards' && (
           <div className="card-hud">
-            <h3 className="font-bold mb-2 text-white">Hazard / Risk / Control Card Sort</h3>
-            <p className="text-sm text-gray-400 mb-4">Sort each card into the correct category.</p>
+            <h3 className="font-bold mb-2 text-gray-900">Hazard / Risk / Control Card Sort</h3>
+            <p className="text-sm text-gray-500 mb-4">Sort each card into the correct category.</p>
             <div className="space-y-2">
               {CARDS.map(c => (
                 <div key={c.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-2 p-3 rounded-lg"
@@ -178,7 +178,7 @@ export default function SlipTripFallPage() {
                     background: cardSubmitted ? (c.category === cardAnswers[c.id] ? 'rgba(0,255,136,0.08)' : 'rgba(255,34,68,0.08)') : 'rgba(10,22,40,0.7)',
                     border: `1px solid ${cardSubmitted ? (c.category === cardAnswers[c.id] ? 'rgba(0,255,136,0.4)' : 'rgba(255,34,68,0.4)') : 'rgba(26,58,107,0.5)'}`,
                   }}>
-                  <span className="text-sm font-medium flex-1 text-gray-200">{c.text}</span>
+                  <span className="text-sm font-medium flex-1 text-gray-800">{c.text}</span>
                   <div className="flex gap-1 flex-wrap">
                     {['hazard','risk','control'].map(cat => (
                       <button key={cat} onClick={() => setCardAns(c.id, cat)} disabled={cardSubmitted}
@@ -187,7 +187,7 @@ export default function SlipTripFallPage() {
                           ? { background:'#E2001A', borderColor:'#E2001A', color:'white' }
                           : { borderColor:'rgba(26,58,107,0.6)', color:'#94A3B8' }}>{cat}</button>
                     ))}
-                    {cardSubmitted && <span className="ml-1 text-xs text-gray-400">{cardAnswers[c.id]===c.category ? '✅' : `❌(${c.category})`}</span>}
+                    {cardSubmitted && <span className="ml-1 text-xs text-gray-500">{cardAnswers[c.id]===c.category ? '✅' : `❌(${c.category})`}</span>}
                   </div>
                 </div>
               ))}

@@ -37,18 +37,18 @@ export default function CPRSequenceGame({ lang, onComplete }) {
     <div>
       <div className="flex justify-center gap-2 mb-5">
         {DRBAC_STEPS.map(s => (
-          <div key={s.id} className="w-10 h-10 rounded-lg flex items-center justify-center font-black text-lg text-white" style={{ background:'#E2001A' }}>{s.letter}</div>
+          <div key={s.id} className="w-10 h-10 rounded-lg flex items-center justify-center font-black text-lg text-gray-900" style={{ background:'#E2001A' }}>{s.letter}</div>
         ))}
       </div>
-      <p className="text-sm text-gray-400 mb-4">{lang === 'en' ? 'Drag the steps into the correct DRBAC order.' : 'Seret langkah-langkah mengikut urutan DRBAC yang betul.'}</p>
+      <p className="text-sm text-gray-500 mb-4">{lang === 'en' ? 'Drag the steps into the correct DRBAC order.' : 'Seret langkah-langkah mengikut urutan DRBAC yang betul.'}</p>
       <div className="flex flex-col gap-2">
         {items.map((item, i) => (
           <div key={item.id} draggable={!submitted} onDragStart={() => setDragging(i)} onDragOver={e => e.preventDefault()} onDrop={() => onDrop(i)}
             className={`drag-item ${submitted ? (item.id === CORRECT_ORDER[i] ? 'correct' : 'wrong') : ''}`}>
             <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-black flex-shrink-0" style={{ background:'rgba(226,0,26,0.2)', color:'#FF6080' }}>{item.letter}</span>
             <div>
-              <p className="font-bold text-sm text-white">{item.word[lang]}</p>
-              <p className="text-xs text-gray-400">{item.desc[lang]}</p>
+              <p className="font-bold text-sm text-gray-900">{item.word[lang]}</p>
+              <p className="text-xs text-gray-500">{item.desc[lang]}</p>
             </div>
             {submitted && <span className="ml-auto">{item.id === CORRECT_ORDER[i] ? '✅' : '❌'}</span>}
           </div>

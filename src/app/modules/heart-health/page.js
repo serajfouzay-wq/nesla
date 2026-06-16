@@ -52,7 +52,7 @@ function HeartRateCalc({ lang, onComplete }) {
 
   return (
     <div>
-      <p className="text-sm text-gray-400 mb-4">{lang === 'en' ? 'Formula: Max HR = 220 − Age' : 'Formula: HR Maks = 220 − Umur'}</p>
+      <p className="text-sm text-gray-500 mb-4">{lang === 'en' ? 'Formula: Max HR = 220 − Age' : 'Formula: HR Maks = 220 − Umur'}</p>
       <div className="flex gap-3 mb-4">
         <input className="input flex-1" type="number" placeholder={t(lang, 'heartHealth.age')} value={age} onChange={e => setAge(e.target.value)} />
         <button onClick={calculate} className="btn-primary px-6">{lang === 'en' ? 'Calculate' : 'Kira'}</button>
@@ -60,7 +60,7 @@ function HeartRateCalc({ lang, onComplete }) {
       {result && (
         <div className="space-y-3">
           <div className="p-4 bg-red-900/30 border border-red-700 rounded-xl text-center">
-            <p className="text-sm text-gray-400">{t(lang, 'heartHealth.maxHrResult')}</p>
+            <p className="text-sm text-gray-500">{t(lang, 'heartHealth.maxHrResult')}</p>
             <p className="text-4xl font-black text-red-400">{result.maxHr} <span className="text-lg font-normal">{t(lang, 'heartHealth.bpm')}</span></p>
           </div>
           <div className="grid grid-cols-2 gap-2 text-xs">
@@ -72,7 +72,7 @@ function HeartRateCalc({ lang, onComplete }) {
             ].map(z => (
               <div key={z.label} className="bg-gray-800 border border-gray-700 rounded-xl p-3">
                 <p className="font-semibold mb-1">{z.label}</p>
-                <p className="text-gray-300 font-bold">{z.range[0]}–{z.range[1]} bpm</p>
+                <p className="text-gray-700 font-bold">{z.range[0]}–{z.range[1]} bpm</p>
               </div>
             ))}
           </div>
@@ -95,7 +95,7 @@ function QuizSet({ lang, quiz, onComplete }) {
   if (done) return <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {score} pts</div>
   return (
     <div>
-      <div className="flex justify-between mb-3"><span className="text-sm text-gray-400">{idx + 1}/{quiz.questions.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
+      <div className="flex justify-between mb-3"><span className="text-sm text-gray-500">{idx + 1}/{quiz.questions.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
       <p className="font-semibold mb-4">{q.q[lang]}</p>
       <div className="flex flex-col gap-3">
         {q.opts[lang].map((opt, i) => {
@@ -125,9 +125,9 @@ export default function HeartHealthPage() {
     <div className="min-h-screen">
       <NavBar />
       <main className="pt-20 pb-12 px-4 max-w-2xl mx-auto">
-        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">❤️</span><div><h1 className="text-2xl font-black">{t(lang, 'modules.heartHealth')}</h1><p className="text-sm text-gray-400">{t(lang, 'appTitle')} · Priority 2</p></div></div>
+        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">❤️</span><div><h1 className="text-2xl font-black">{t(lang, 'modules.heartHealth')}</h1><p className="text-sm text-gray-500">{t(lang, 'appTitle')} · Priority 2</p></div></div>
         <div className="flex gap-2 mb-6 overflow-x-auto">
-          {tabs.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${tab === tb.key ? 'bg-pink-700 text-white' : 'bg-gray-800 text-gray-400 hover:text-white'}`}>{tb.label}</button>)}
+          {tabs.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${tab === tb.key ? 'bg-pink-700 text-gray-900' : 'bg-gray-800 text-gray-500 hover:text-gray-900'}`}>{tb.label}</button>)}
         </div>
         <div className="card">
           {QUIZZES.map((quiz, i) => tab === `q${i}` && (
@@ -137,7 +137,7 @@ export default function HeartHealthPage() {
           ))}
           {tab === 'hr' && (scores.hr !== undefined ? <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {scores.hr} pts</div> : <HeartRateCalc lang={lang} onComplete={v => setScore('hr', v)} />)}
         </div>
-        {total > 0 && <div className="card mt-4"><p className="text-sm text-gray-400">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p><p className="text-2xl font-black text-nestle-gold">{total} / {max}</p><ScoreSubmit moduleSlug="heart-health" score={total} maxScore={max} /></div>}
+        {total > 0 && <div className="card mt-4"><p className="text-sm text-gray-500">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p><p className="text-2xl font-black text-nestle-gold">{total} / {max}</p><ScoreSubmit moduleSlug="heart-health" score={total} maxScore={max} /></div>}
       </main>
     </div>
   )

@@ -49,11 +49,11 @@ function QuizGame({ lang, onComplete }) {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <span className="text-sm text-gray-400">{lang === 'en' ? 'Question' : 'Soalan'} {idx + 1}/{QUIZ.length}</span>
+        <span className="text-sm text-gray-500">{lang === 'en' ? 'Question' : 'Soalan'} {idx + 1}/{QUIZ.length}</span>
         <span className="text-sm font-bold text-nestle-gold">{score} pts</span>
       </div>
       <div className="progress-track mb-6"><div className="progress-fill" style={{ width: `${(idx / QUIZ.length) * 100}%` }} /></div>
-      <p className="text-lg font-semibold mb-5 text-white">{q.q[lang]}</p>
+      <p className="text-lg font-semibold mb-5 text-gray-900">{q.q[lang]}</p>
       <div className="flex flex-col gap-3">
         {q.opts[lang].map((opt, i) => {
           let cls = 'quiz-option '
@@ -65,7 +65,7 @@ function QuizGame({ lang, onComplete }) {
           return <button key={i} className={cls} onClick={() => choose(i)}><span className="font-semibold mr-2 opacity-60">{String.fromCharCode(65 + i)}.</span>{opt}</button>
         })}
       </div>
-      {showEx && <div className="mt-4 p-4 rounded-xl" style={{ background:'rgba(10,22,40,0.8)', border:'1px solid rgba(26,58,107,0.6)' }}><p className="text-sm text-gray-300">{q.ex[lang]}</p><button onClick={next} className="btn-primary mt-3 w-full">{idx + 1 < QUIZ.length ? t(lang, 'next') : (lang === 'en' ? 'See Results' : 'Lihat Keputusan')} →</button></div>}
+      {showEx && <div className="mt-4 p-4 rounded-xl" style={{ background:'rgba(10,22,40,0.8)', border:'1px solid rgba(26,58,107,0.6)' }}><p className="text-sm text-gray-700">{q.ex[lang]}</p><button onClick={next} className="btn-primary mt-3 w-full">{idx + 1 < QUIZ.length ? t(lang, 'next') : (lang === 'en' ? 'See Results' : 'Lihat Keputusan')} →</button></div>}
     </div>
   )
 }
@@ -84,8 +84,8 @@ function ScenarioGame({ lang, onComplete }) {
 
   return (
     <div>
-      <div className="flex justify-between mb-4"><span className="text-sm text-gray-400">{lang === 'en' ? 'Scenario' : 'Senario'} {idx + 1}/{SCENARIOS.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
-      <p className="text-base font-medium mb-5 leading-relaxed text-white">{s.q[lang]}</p>
+      <div className="flex justify-between mb-4"><span className="text-sm text-gray-500">{lang === 'en' ? 'Scenario' : 'Senario'} {idx + 1}/{SCENARIOS.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
+      <p className="text-base font-medium mb-5 leading-relaxed text-gray-900">{s.q[lang]}</p>
       <div className="flex flex-col gap-3">
         {s.opts[lang].map((opt, i) => {
           let cls = 'quiz-option '
@@ -97,7 +97,7 @@ function ScenarioGame({ lang, onComplete }) {
           return <button key={i} className={cls} onClick={() => choose(i)}>{opt}</button>
         })}
       </div>
-      {selected !== null && <div className="mt-4 p-4 rounded-xl" style={{ background:'rgba(10,22,40,0.8)', border:'1px solid rgba(26,58,107,0.6)' }}><p className="text-sm text-gray-300">{s.feedback[lang]}</p><button onClick={next} className="btn-primary mt-3 w-full">{idx + 1 < SCENARIOS.length ? t(lang, 'next') : (lang === 'en' ? 'See Results' : 'Lihat Keputusan')} →</button></div>}
+      {selected !== null && <div className="mt-4 p-4 rounded-xl" style={{ background:'rgba(10,22,40,0.8)', border:'1px solid rgba(26,58,107,0.6)' }}><p className="text-sm text-gray-700">{s.feedback[lang]}</p><button onClick={next} className="btn-primary mt-3 w-full">{idx + 1 < SCENARIOS.length ? t(lang, 'next') : (lang === 'en' ? 'See Results' : 'Lihat Keputusan')} →</button></div>}
     </div>
   )
 }
@@ -121,7 +121,7 @@ export default function SafeDrivingPage() {
     <div className="min-h-screen">
       <NavBar />
       <main className="pt-20 pb-12 px-4 max-w-2xl mx-auto">
-        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">🚗</span><div><h1 className="text-2xl font-black text-white">{t(lang, 'modules.safeDriving')}</h1><p className="text-sm text-gray-400">{t(lang, 'appTitle')} · Priority 1</p></div></div>
+        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">🚗</span><div><h1 className="text-2xl font-black text-gray-900">{t(lang, 'modules.safeDriving')}</h1><p className="text-sm text-gray-500">{t(lang, 'appTitle')} · Priority 1</p></div></div>
         <div className="flex gap-2 mb-6 overflow-x-auto">
           {TABS.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)}
             className="flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-colors"
@@ -138,7 +138,7 @@ export default function SafeDrivingPage() {
         </div>
         {(quizScore !== null || scenarioScore !== null || videoScore !== null) && (
           <div className="card-hud mt-4">
-            <p className="text-sm text-gray-400 mb-1">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p>
+            <p className="text-sm text-gray-500 mb-1">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p>
             <p className="text-2xl font-black text-nestle-gold">{total} / {max}</p>
             <ScoreSubmit moduleSlug="safe-driving" score={total} maxScore={max} />
           </div>

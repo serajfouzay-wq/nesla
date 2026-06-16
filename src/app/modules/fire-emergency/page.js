@@ -49,11 +49,11 @@ function PASSQuiz({ lang, onComplete }) {
         {PASS.map((p, i) => (
           <div key={i} className="bg-red-900/40 border border-red-700 rounded-xl p-3 text-center">
             <div className="text-3xl font-black text-nestle-red">{p.letter}</div>
-            <div className="text-xs mt-1 text-gray-300">{lang === 'en' ? p.en : p.bm}</div>
+            <div className="text-xs mt-1 text-gray-700">{lang === 'en' ? p.en : p.bm}</div>
           </div>
         ))}
       </div>
-      <div className="flex justify-between mb-3"><span className="text-sm text-gray-400">{idx + 1}/{QUIZ_FIRE.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
+      <div className="flex justify-between mb-3"><span className="text-sm text-gray-500">{idx + 1}/{QUIZ_FIRE.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
       <p className="font-semibold mb-4">{q.q[lang]}</p>
       <div className="flex flex-col gap-3">
         {q.opts[lang].map((opt, i) => {
@@ -91,7 +91,7 @@ function SequenceGame({ lang, onComplete }) {
 
   return (
     <div>
-      <p className="text-sm text-gray-400 mb-4">{t(lang, 'fireEmergency.sequenceInstruction')}</p>
+      <p className="text-sm text-gray-500 mb-4">{t(lang, 'fireEmergency.sequenceInstruction')}</p>
       <div className="flex flex-col gap-2">
         {items.map((item, i) => (
           <div key={item.id} draggable onDragStart={() => setDragging(i)} onDragOver={e => e.preventDefault()} onDrop={() => onDrop(i)}
@@ -122,15 +122,15 @@ export default function FireEmergencyPage() {
     <div className="min-h-screen">
       <NavBar />
       <main className="pt-20 pb-12 px-4 max-w-2xl mx-auto">
-        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">🔥</span><div><h1 className="text-2xl font-black">{t(lang, 'modules.fireEmergency')}</h1><p className="text-sm text-gray-400">{t(lang, 'appTitle')} · Priority 2</p></div></div>
+        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">🔥</span><div><h1 className="text-2xl font-black">{t(lang, 'modules.fireEmergency')}</h1><p className="text-sm text-gray-500">{t(lang, 'appTitle')} · Priority 2</p></div></div>
         <div className="flex gap-2 mb-6">
-          {TABS.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${tab === tb.key ? 'bg-red-700 text-white' : 'bg-gray-800 text-gray-400 hover:text-white'}`}>{tb[lang]}</button>)}
+          {TABS.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${tab === tb.key ? 'bg-red-700 text-gray-900' : 'bg-gray-800 text-gray-500 hover:text-gray-900'}`}>{tb[lang]}</button>)}
         </div>
         <div className="card">
           {tab === 'pass' && (passScore !== null ? <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {passScore} pts</div> : <PASSQuiz lang={lang} onComplete={setPassScore} />)}
           {tab === 'seq' && (seqScore !== null ? <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {seqScore} pts</div> : <SequenceGame lang={lang} onComplete={setSeqScore} />)}
         </div>
-        {total > 0 && <div className="card mt-4"><p className="text-sm text-gray-400">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p><p className="text-2xl font-black text-nestle-gold">{total} / {max}</p><ScoreSubmit moduleSlug="fire-emergency" score={total} maxScore={max} /></div>}
+        {total > 0 && <div className="card mt-4"><p className="text-sm text-gray-500">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p><p className="text-2xl font-black text-nestle-gold">{total} / {max}</p><ScoreSubmit moduleSlug="fire-emergency" score={total} maxScore={max} /></div>}
       </main>
     </div>
   )

@@ -32,7 +32,7 @@ function MatchGame({ lang, onComplete }) {
   function toggle(id) { setRevealed(r => r.includes(id) ? r.filter(x => x !== id) : [...r, id]) }
   return (
     <div>
-      <p className="text-sm text-gray-400 mb-4">{lang === 'en' ? 'Tap each card to learn the plastic type' : 'Ketik setiap kad untuk mengetahui jenis plastik'}</p>
+      <p className="text-sm text-gray-500 mb-4">{lang === 'en' ? 'Tap each card to learn the plastic type' : 'Ketik setiap kad untuk mengetahui jenis plastik'}</p>
       <div className="grid grid-cols-2 gap-3">
         {PLASTIC_TYPES.map(p => (
           <button key={p.id} onClick={() => toggle(p.id)} className={`p-4 rounded-xl border text-left transition-all ${revealed.includes(p.id) ? 'border-green-500 bg-green-900/20' : 'border-gray-700 bg-gray-800 hover:border-green-500'}`}>
@@ -40,7 +40,7 @@ function MatchGame({ lang, onComplete }) {
               <span className="text-2xl font-black text-green-400">{p.code}</span>
               {p.id <= 3 && <span className="badge-green text-xs">{lang === 'en' ? 'Common' : 'Biasa'}</span>}
             </div>
-            {revealed.includes(p.id) ? (<><p className="text-xs font-semibold text-gray-200">{lang === 'en' ? p.en : p.bm}</p><p className="text-xs text-gray-400 mt-1">{lang === 'en' ? p.example : p.exBm}</p></>) : <p className="text-xs text-gray-500">{lang === 'en' ? 'Tap to reveal →' : 'Ketik untuk dedah →'}</p>}
+            {revealed.includes(p.id) ? (<><p className="text-xs font-semibold text-gray-800">{lang === 'en' ? p.en : p.bm}</p><p className="text-xs text-gray-500 mt-1">{lang === 'en' ? p.example : p.exBm}</p></>) : <p className="text-xs text-gray-500">{lang === 'en' ? 'Tap to reveal →' : 'Ketik untuk dedah →'}</p>}
           </button>
         ))}
       </div>
@@ -61,7 +61,7 @@ function SortGame({ lang, onComplete }) {
 
   return (
     <div>
-      <p className="text-sm text-gray-400 mb-4">{t(lang, 'plasticRecycling.sortInstruction')}</p>
+      <p className="text-sm text-gray-500 mb-4">{t(lang, 'plasticRecycling.sortInstruction')}</p>
       <div className="flex flex-col gap-3">
         {SORT_ITEMS.map(item => (
           <div key={item.id} className={`p-3 rounded-xl border flex items-center gap-3 ${submitted ? assignments[item.id] === item.recyclable ? 'border-green-500 bg-green-900/20' : 'border-red-500 bg-red-900/20' : 'border-gray-700 bg-gray-800'}`}>
@@ -94,15 +94,15 @@ export default function PlasticRecyclingPage() {
     <div className="min-h-screen">
       <NavBar />
       <main className="pt-20 pb-12 px-4 max-w-2xl mx-auto">
-        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">♻️</span><div><h1 className="text-2xl font-black">{t(lang, 'modules.plasticRecycling')}</h1><p className="text-sm text-gray-400">{t(lang, 'appTitle')} · Priority 2</p></div></div>
+        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">♻️</span><div><h1 className="text-2xl font-black">{t(lang, 'modules.plasticRecycling')}</h1><p className="text-sm text-gray-500">{t(lang, 'appTitle')} · Priority 2</p></div></div>
         <div className="flex gap-2 mb-6">
-          {TABS.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${tab === tb.key ? 'bg-green-700 text-white' : 'bg-gray-800 text-gray-400 hover:text-white'}`}>{tb[lang]}</button>)}
+          {TABS.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${tab === tb.key ? 'bg-green-700 text-gray-900' : 'bg-gray-800 text-gray-500 hover:text-gray-900'}`}>{tb[lang]}</button>)}
         </div>
         <div className="card">
           {tab === 'match' && (matchScore !== null ? <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {matchScore} pts</div> : <MatchGame lang={lang} onComplete={setMatchScore} />)}
           {tab === 'sort' && (sortScore !== null ? <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {sortScore} pts</div> : <SortGame lang={lang} onComplete={setSortScore} />)}
         </div>
-        {total > 0 && <div className="card mt-4"><p className="text-sm text-gray-400">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p><p className="text-2xl font-black text-nestle-gold">{total} / {max}</p><ScoreSubmit moduleSlug="plastic-recycling" score={total} maxScore={max} /></div>}
+        {total > 0 && <div className="card mt-4"><p className="text-sm text-gray-500">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p><p className="text-2xl font-black text-nestle-gold">{total} / {max}</p><ScoreSubmit moduleSlug="plastic-recycling" score={total} maxScore={max} /></div>}
       </main>
     </div>
   )

@@ -98,7 +98,7 @@ export default function SukuSukuSeparuhPlate({ lang, onComplete }) {
         <div onDragOver={e=>e.preventDefault()} onDrop={()=>dropOnZone('protein')} className="absolute" style={{ right:0, bottom:0, width:'50%', height:'50%' }} />
       </div>
 
-      <p className="text-sm text-gray-400 mb-2">{lang === 'en' ? 'Drag food onto the matching plate zone, or tap to add:' : 'Seret makanan ke zon pinggan yang sepadan, atau ketik untuk tambah:'}</p>
+      <p className="text-sm text-gray-500 mb-2">{lang === 'en' ? 'Drag food onto the matching plate zone, or tap to add:' : 'Seret makanan ke zon pinggan yang sepadan, atau ketik untuk tambah:'}</p>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
         {Object.entries(ZONE_META).map(([zoneKey, z]) => (
           <div key={zoneKey} className="rounded-xl p-2" style={{ background: z.bg, border: `1px dashed ${z.color}50` }}>

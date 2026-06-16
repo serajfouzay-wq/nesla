@@ -115,8 +115,8 @@ export default function ErgonomicPostureGame({ lang, onComplete }) {
 
   return (
     <div>
-      <div className="flex justify-between mb-4"><span className="text-sm text-gray-400">{idx+1}/{ROUNDS.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
-      <p className="font-semibold mb-4 text-white">{round.prompt[lang]}</p>
+      <div className="flex justify-between mb-4"><span className="text-sm text-gray-500">{idx+1}/{ROUNDS.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
+      <p className="font-semibold mb-4 text-gray-900">{round.prompt[lang]}</p>
       <div className="grid grid-cols-2 gap-3">
         {['A','B'].map(letter => (
           <button key={letter} onClick={() => choose(letter)}
@@ -126,13 +126,13 @@ export default function ErgonomicPostureGame({ lang, onComplete }) {
               opacity: selected && letter !== round.correct && letter !== selected ? 0.4 : 1,
             }}>
             <PostureFigure variant={letter} kind={kind} />
-            <div className="py-1 text-center text-xs font-bold text-gray-300">{letter}</div>
+            <div className="py-1 text-center text-xs font-bold text-gray-700">{letter}</div>
           </button>
         ))}
       </div>
       {selected && (
         <div className="mt-4 p-4 rounded-xl" style={{ background:'rgba(10,22,40,0.8)', border:'1px solid rgba(26,58,107,0.6)' }}>
-          <p className="text-sm text-gray-300">{round.tip[lang]}</p>
+          <p className="text-sm text-gray-700">{round.tip[lang]}</p>
           <button onClick={next} className="btn-primary mt-3 w-full">{idx+1 < ROUNDS.length ? (lang==='en'?'Next':'Seterusnya') : (lang==='en'?'See Results':'Lihat Keputusan')} →</button>
         </div>
       )}

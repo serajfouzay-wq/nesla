@@ -31,7 +31,7 @@ export default function OfficeHazardScene({ lang, onComplete, pointsPerHazard = 
 
   return (
     <div>
-      <p className="text-sm text-gray-400 mb-3">
+      <p className="text-sm text-gray-500 mb-3">
         {lang === 'en' ? `Click directly on the hazards you spot in the office scene. Find all ${HAZARDS.length}!` : `Klik terus pada bahaya yang anda kesan dalam pejabat ini. Cari kesemua ${HAZARDS.length}!`}
       </p>
 
@@ -90,7 +90,7 @@ export default function OfficeHazardScene({ lang, onComplete, pointsPerHazard = 
         })}
       </div>
 
-      <p className="text-sm font-bold mt-2 text-gray-300">
+      <p className="text-sm font-bold mt-2 text-gray-700">
         {lang === 'en' ? 'Found' : 'Dijumpai'}: <span style={{ color:'#00FF88' }}>{found.length}</span> / {HAZARDS.length} ({found.length * pointsPerHazard} pts)
       </p>
 
