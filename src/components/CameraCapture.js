@@ -106,7 +106,7 @@ export default function CameraCapture({ onCapture, onSubmit, label = 'Capture Ph
               className="w-14 h-14 rounded-full border-4 border-white bg-white/20 hover:bg-white/40 active:scale-90 transition-all flex items-center justify-center disabled:opacity-40">
               <div className="w-10 h-10 rounded-full bg-white" />
             </button>
-            <button onClick={stopCamera} className="text-white/70 hover:text-white text-sm">Cancel</button>
+            <button onClick={stopCamera} className="text-gray-900/70 hover:text-gray-900 text-sm">Cancel</button>
           </div>
         </div>
       )}
@@ -114,8 +114,8 @@ export default function CameraCapture({ onCapture, onSubmit, label = 'Capture Ph
       {!active && !submitted && (
         <div className="card text-center py-6">
           <p className="text-4xl mb-3">📷</p>
-          <p className="font-bold text-white mb-1">{label}</p>
-          <p className="text-gray-400 text-sm mb-4">Capture up to {maxPhotos} photos • {points} pts each</p>
+          <p className="font-bold text-gray-900 mb-1">{label}</p>
+          <p className="text-gray-500 text-sm mb-4">Capture up to {maxPhotos} photos • {points} pts each</p>
           {error && <p className="text-neon-red text-sm mb-3 bg-neon-red/10 rounded-lg p-3">{error}</p>}
           <div className="flex gap-3 justify-center flex-wrap">
             <button onClick={startCamera} className="btn-neon text-sm py-2 px-4">
@@ -141,7 +141,7 @@ export default function CameraCapture({ onCapture, onSubmit, label = 'Capture Ph
                 <img src={photo.dataUrl} alt="capture" className="w-full aspect-video object-cover" />
                 {!submitted && (
                   <button onClick={() => removePhoto(photo.id)}
-                    className="absolute top-1 right-1 w-6 h-6 bg-neon-red rounded-full text-white text-xs flex items-center justify-center hover:scale-110 transition-transform">×</button>
+                    className="absolute top-1 right-1 w-6 h-6 bg-neon-red rounded-full text-gray-900 text-xs flex items-center justify-center hover:scale-110 transition-transform">×</button>
                 )}
                 <div className="p-2">
                   {!submitted ? (
