@@ -70,7 +70,7 @@ function HeartRateCalc({ lang, onComplete }) {
               { label: lang === 'en' ? '🟡 Cardio (70–85%)' : '🟡 Kardio (70–85%)', range: result.zones.cardio },
               { label: lang === 'en' ? '🔴 Peak (85–100%)' : '🔴 Puncak (85–100%)', range: result.zones.peak },
             ].map(z => (
-              <div key={z.label} className="bg-gray-800 border border-gray-700 rounded-xl p-3">
+              <div key={z.label} className="bg-white border border-gray-200 rounded-xl p-3">
                 <p className="font-semibold mb-1">{z.label}</p>
                 <p className="text-gray-700 font-bold">{z.range[0]}–{z.range[1]} bpm</p>
               </div>
@@ -92,7 +92,7 @@ function QuizSet({ lang, quiz, onComplete }) {
   function choose(i) { if (selected !== null) return; setSelected(i); if (i === q.ans) setScore(s => s + 10) }
   function next() { if (idx + 1 >= quiz.questions.length) { setDone(true); onComplete(score); return } setIdx(i => i + 1); setSelected(null) }
 
-  if (done) return <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {score} pts</div>
+  if (done) return <div className="text-center py-6 text-green-700 font-black text-2xl">✅ {score} pts</div>
   return (
     <div>
       <div className="flex justify-between mb-3"><span className="text-sm text-gray-500">{idx + 1}/{quiz.questions.length}</span><span className="text-sm font-bold text-nestle-gold">{score} pts</span></div>
@@ -100,10 +100,10 @@ function QuizSet({ lang, quiz, onComplete }) {
       <div className="flex flex-col gap-3">
         {q.opts[lang].map((opt, i) => {
           let cls = 'p-3 rounded-xl border text-left text-sm transition-all '
-          if (selected === null) cls += 'border-gray-700 bg-gray-800 hover:border-pink-500 cursor-pointer'
-          else if (i === q.ans) cls += 'border-green-500 bg-green-900/40'
-          else if (i === selected) cls += 'border-red-500 bg-red-900/40'
-          else cls += 'border-gray-700 bg-gray-800 opacity-50'
+          if (selected === null) cls += 'border-gray-200 bg-white hover:border-pink-500 cursor-pointer text-gray-900'
+          else if (i === q.ans) cls += 'border-green-500 bg-green-50'
+          else if (i === selected) cls += 'border-red-500 bg-red-50'
+          else cls += 'border-gray-200 bg-white opacity-50 text-gray-900'
           return <button key={i} className={cls} onClick={() => choose(i)}>{opt}</button>
         })}
       </div>
@@ -125,17 +125,17 @@ export default function HeartHealthPage() {
     <div className="min-h-screen">
       <NavBar />
       <main className="pt-20 pb-12 px-4 max-w-2xl mx-auto">
-        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">❤️</span><div><h1 className="text-2xl font-black">{t(lang, 'modules.heartHealth')}</h1><p className="text-sm text-gray-500">{t(lang, 'appTitle')} · Priority 2</p></div></div>
+        <div className="flex items-center gap-3 mb-6"><span className="text-3xl">❤️</span><div><h1 className="text-2xl font-black text-gray-900">{t(lang, 'modules.heartHealth')}</h1><p className="text-sm text-gray-500">{t(lang, 'appTitle')} · Priority 2</p></div></div>
         <div className="flex gap-2 mb-6 overflow-x-auto">
-          {tabs.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${tab === tb.key ? 'bg-pink-700 text-gray-900' : 'bg-gray-800 text-gray-500 hover:text-gray-900'}`}>{tb.label}</button>)}
+          {tabs.map(tb => <button key={tb.key} onClick={() => setTab(tb.key)} className={`flex-shrink-0 px-3 py-2 rounded-xl text-xs font-semibold transition-colors ${tab === tb.key ? 'bg-pink-700 text-white' : 'bg-white text-gray-500 hover:text-gray-900'}`}>{tb.label}</button>)}
         </div>
         <div className="card">
           {QUIZZES.map((quiz, i) => tab === `q${i}` && (
             scores[`q${i}`] !== undefined
-              ? <div key={i} className="text-center py-6 text-green-400 font-black text-2xl">✅ {scores[`q${i}`]} pts</div>
+              ? <div key={i} className="text-center py-6 text-green-700 font-black text-2xl">✅ {scores[`q${i}`]} pts</div>
               : <QuizSet key={i} lang={lang} quiz={quiz} onComplete={v => setScore(`q${i}`, v)} />
           ))}
-          {tab === 'hr' && (scores.hr !== undefined ? <div className="text-center py-6 text-green-400 font-black text-2xl">✅ {scores.hr} pts</div> : <HeartRateCalc lang={lang} onComplete={v => setScore('hr', v)} />)}
+          {tab === 'hr' && (scores.hr !== undefined ? <div className="text-center py-6 text-green-700 font-black text-2xl">✅ {scores.hr} pts</div> : <HeartRateCalc lang={lang} onComplete={v => setScore('hr', v)} />)}
         </div>
         {total > 0 && <div className="card mt-4"><p className="text-sm text-gray-500">{lang === 'en' ? 'Module total' : 'Jumlah modul'}</p><p className="text-2xl font-black text-nestle-gold">{total} / {max}</p><ScoreSubmit moduleSlug="heart-health" score={total} maxScore={max} /></div>}
       </main>
